@@ -85,13 +85,13 @@
        ======================= -->
   <img src="Logo Jata.svg" class="header-image" alt="Logo Atas">
 
-  <h1>Kalkulator Week of Gestation (Offline)</h1>
+  <h1>Kalkulator Minggu Kehamilan</h1>
 
   <!-- Input tarikh first booking -->
   <label for="bookingDate">Tarikh First Booking</label>
   <input type="date" id="bookingDate">
 
-  <!-- Input week of gestation pada tarikh first booking -->
+  <!-- Input minggu kehamilan pada tarikh first booking -->
   <label>Week of Gestation pada Tarikh First Booking</label>
   <div class="row">
     <div>
@@ -171,13 +171,13 @@
       let bookingDays = parseInt(bookingDaysValue || "0", 10);
 
       if (isNaN(bookingWeeks) || bookingWeeks < 0) {
-        errorDiv.textContent = "Week of gestation (minggu) pada first booking tidak sah.";
+        errorDiv.textContent = "Minggu kehamilan pada first booking tidak sah.";
         errorDiv.style.display = "block";
         return;
       }
 
       if (isNaN(bookingDays) || bookingDays < 0 || bookingDays > 6) {
-        errorDiv.textContent = "Hari pada week of gestation perlu antara 0 hingga 6.";
+        errorDiv.textContent = "Hari pada minggu kehamilan perlu antara 0 hingga 6.";
         errorDiv.style.display = "block";
         return;
       }
@@ -220,9 +220,9 @@
       resultDiv.innerHTML = `
         <strong>Keputusan Kiraan:</strong><br><br>
         Tarikh First Booking: <strong>${bookingDateText}</strong><br>
-        Week of Gestation pada First Booking: <strong>${bookingWeeks} minggu ${bookingDays} hari</strong><br><br>
+       Minggu Kehamilan pada First Booking: <strong>${bookingWeeks} minggu ${bookingDays} hari</strong><br><br>
         Tarikh Sasaran: <strong>${targetDateText}</strong><br>
-        Week of Gestation pada tarikh ini ialah: <strong>${currentWeeks} minggu ${currentDays} hari</strong><br><br>
+        Minggu Kehamilan pada tarikh ini ialah: <strong>${currentWeeks} minggu ${currentDays} hari</strong><br><br>
         <small>
           Kiraan ini berdasarkan formula asas:<br>
           (Minggu + Hari pada tarikh first booking) + perbezaan hari di antara tarikh sasaran dan tarikh first booking.
