@@ -12,16 +12,23 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       background: #fafafa;
+      text-align: center; /* supaya gambar center */
     }
     h1 {
       font-size: 22px;
       text-align: center;
       margin-bottom: 20px;
     }
+    .header-image, .footer-image {
+      width: 150px;
+      margin: 10px auto;
+      display: block;
+    }
     label {
       display: block;
       margin-top: 12px;
       font-weight: bold;
+      text-align: left;
     }
     input[type="date"],
     input[type="number"] {
@@ -46,6 +53,7 @@
       cursor: pointer;
       background: #1976d2;
       color: white;
+      width: 100%;
     }
     button:hover {
       background: #0d47a1;
@@ -55,6 +63,7 @@
       padding: 12px;
       border-radius: 6px;
       background: #e3f2fd;
+      text-align: left;
     }
     .error {
       margin-top: 10px;
@@ -71,18 +80,12 @@
 </head>
 <body>
 
-  <div class="card">
+  <!-- =======================
+       IMAGE ATAS (HEADER)
+       ======================= -->
+  <img src="Logo Jata.svg" class="header-image" alt="Logo Atas">
 
-    <!-- =========== GAMBAR ATAS =========== -->
-    <img src="Logo Jata.svg" class="header-image" alt="Atas">
-
-
-    <!-- =========== GAMBAR BAWAH =========== -->
-    <img src="Logo Bawah.svg" class="footer-image" alt="Bawah">
-
-  </div>
-
-  <h1>Kalkulator Minggu Kehamilan</h1>
+  <h1>Kalkulator Week of Gestation (Offline)</h1>
 
   <!-- Input tarikh first booking -->
   <label for="bookingDate">Tarikh First Booking</label>
@@ -108,26 +111,29 @@
   </label>
   <input type="date" id="targetDate">
 
-  <button id="calculateBtn">Kira Minggu Kehamilan</button>
+  <button id="calculateBtn">Kira Week of Gestation</button>
 
   <div id="error" class="error" style="display:none;"></div>
 
   <div id="result" class="result" style="display:none;"></div>
 
+  <!-- =======================
+       IMAGE BAWAH (FOOTER)
+       ======================= -->
+  <img src="Logo Jata.svg" class="footer-image" alt="Logo Bawah">
+
   <script>
     function parseDateInput(value) {
-      // value format: "YYYY-MM-DD"
       if (!value) return null;
       const parts = value.split("-");
       if (parts.length !== 3) return null;
       const year = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10) - 1; // JS month 0–11
+      const month = parseInt(parts[1], 10) - 1;
       const day = parseInt(parts[2], 10);
       return new Date(year, month, day);
     }
 
     function diffInDays(date1, date2) {
-      // Bezakan dalam unit hari, buang masa (jam/minit) supaya tepat
       const oneDayMs = 24 * 60 * 60 * 1000;
       const d1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
       const d2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
@@ -148,7 +154,6 @@
       errorDiv.textContent = "";
       resultDiv.textContent = "";
 
-      // Validate input asas
       if (!bookingDateValue) {
         errorDiv.textContent = "Sila masukkan Tarikh First Booking.";
         errorDiv.style.display = "block";
@@ -177,7 +182,6 @@
         return;
       }
 
-      // Kalau tarikh sasaran kosong, guna tarikh hari ini (ikut PC/phone)
       let targetDate;
       if (targetDateValue) {
         targetDate = parseDateInput(targetDateValue);
@@ -187,10 +191,9 @@
           return;
         }
       } else {
-        targetDate = new Date(); // hari ini
+        targetDate = new Date();
       }
 
-      // Semak jika tarikh sasaran sebelum tarikh first booking
       const daysBetween = diffInDays(bookingDate, targetDate);
       if (daysBetween < 0) {
         errorDiv.textContent = "Tarikh sasaran tidak boleh lebih awal daripada tarikh first booking.";
@@ -198,17 +201,12 @@
         return;
       }
 
-      // Kira total hari gestation pada first booking
       const totalDaysAtBooking = bookingWeeks * 7 + bookingDays;
-
-      // Tambah beza hari
       const totalDaysNow = totalDaysAtBooking + daysBetween;
 
-      // Convert kembali ke minggu + hari
       const currentWeeks = Math.floor(totalDaysNow / 7);
       const currentDays = totalDaysNow % 7;
 
-      // Format tarikh untuk paparan
       function formatDate(d) {
         const dd = String(d.getDate()).padStart(2, "0");
         const mm = String(d.getMonth() + 1).padStart(2, "0");
